@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  color-scheme: dark;
+
+  --color-bg: #0e0a15;
+  --color-surface: #151021;
+  --color-surface-2: #221a38;
+  --color-border: #2b2242;
+  --color-text: #e8e4f1;
+  --color-text-muted: #a79fbc;
+  --color-text-faint: #8e87a2;
+  --color-accent: #8b5cf6;
+  /* Accent-colored text needs this lighter tint to stay readable on dark surfaces */
+  --color-accent-text: #a78bfa;
+  --color-accent-soft: rgba(139, 92, 246, 0.16);
+  --color-positive: #4ade80;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  user-select: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

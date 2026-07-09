@@ -8,17 +8,21 @@
 - Simple enough for Claude Code to change one task at a time.
 - Private by default, with no required account or cloud service.
 
-## Provisional Stack
+## Approved Stack
 
-The provisional stack is:
+The approved stack (see Decision 008) is:
 
-- Electron for desktop shell
+- Electron for desktop shell, scaffolded with electron-vite
 - React for UI
 - TypeScript for application code
-- SQLite for local structured data
-- Ollama for local AI reviews
+- SQLite for local structured data (added in Task 6)
+- Ollama for local AI reviews (added in Task 10)
 
-This stack is not final until the developer approves the project scaffold task.
+The scaffold uses electron-vite's main/preload/renderer structure:
+
+- `src/main/` — Electron main process
+- `src/preload/` — context-isolated preload bridge
+- `src/renderer/` — React UI
 
 ## Application Shape
 

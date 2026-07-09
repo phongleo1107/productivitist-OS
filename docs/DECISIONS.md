@@ -57,3 +57,11 @@ Record project decisions here when they affect architecture, data ownership, fea
 **Reason:** The app should remain lightweight, private, and focused on individual productivity.
 
 **Impact:** These features should not appear in implementation tasks unless the developer explicitly changes scope.
+
+## 008: Stack Approved And Scaffolded With electron-vite
+
+**Decision:** The developer approved the provisional stack (Electron, React, TypeScript, with SQLite planned for Task 6 and Ollama for Task 10) on 2026-07-09. The project was scaffolded with electron-vite (react-ts template).
+
+**Reason:** electron-vite provides a purpose-built main/preload/renderer structure with fast development builds and minimal configuration, matching the "simple enough to change one task at a time" architecture goal.
+
+**Impact:** The stack is no longer provisional. Scaffold tooling (electron-vite, electron-builder, ESLint, Prettier) and template dependencies are approved. SQLite and Ollama libraries are still not installed; they arrive with their tasks.

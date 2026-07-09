@@ -2,13 +2,13 @@
 
 ## Model Policy
 
-- Small documentation updates: Haiku
-- Small UI changes: Haiku
-- Normal implementation: Fable 5
-- Refactoring: Fable 5
-- Complex reasoning or architectural work: Opus only when truly necessary
+- Default to Haiku for documentation, scaffold/config work, static UI, small styling fixes, simple component extraction, and review/polish.
+- Use Fable 5 only for tasks with non-trivial state, persistence, data modeling, cross-feature integration, or tricky behavior.
+- Use Opus only for major architecture decisions or when Fable 5 gets stuck.
+- Prefer the cheapest model that can safely complete the bounded task.
+- Keep tasks small enough that model choice can be re-evaluated before each task.
 
-Prefer Fable 5 whenever possible.
+Before starting a task, re-evaluate model choice based on actual scope. If the task is only visual/static or documentation/configuration, use Haiku.
 
 ## Task 1: Documentation Foundation Review
 
@@ -54,7 +54,7 @@ Prefer Fable 5 whenever possible.
 - No unapproved dependencies are added.
 - Documentation is updated if the approved stack differs from the provisional stack.
 
-**Suggested Claude model:** Fable 5
+**Suggested Claude model:** Haiku
 
 ## Task 3: Static Dashboard UI
 
@@ -77,7 +77,7 @@ Prefer Fable 5 whenever possible.
 - Data is static or mocked.
 - No persistence or feature behavior is added.
 
-**Suggested Claude model:** Fable 5
+**Suggested Claude model:** Haiku
 
 ## Task 4: Static Focus Room UI
 
@@ -101,7 +101,7 @@ Prefer Fable 5 whenever possible.
 - Local music UI is designed to be flexible but does not include implementation (future task).
 - No external integration is added.
 
-**Suggested Claude model:** Fable 5
+**Suggested Claude model:** Haiku
 
 ## Task 5: Static Habit Tracker UI
 
@@ -124,7 +124,7 @@ Prefer Fable 5 whenever possible.
 - Data is static or mocked.
 - No persistence is added.
 
-**Suggested Claude model:** Fable 5
+**Suggested Claude model:** Haiku
 
 ## Task 6: Local Persistence Foundation
 
@@ -272,7 +272,7 @@ Prefer Fable 5 whenever possible.
 - Defaults remain polished.
 - No online account is required.
 
-**Suggested Claude model:** Fable 5
+**Suggested Claude model:** Fable 5 if persistence/theme integration is included; Haiku if split into static settings UI only.
 
 ## Task 12: Refactor and Polish Pass
 
@@ -296,4 +296,4 @@ Prefer Fable 5 whenever possible.
 - UI remains consistent with the design system.
 - Relevant checks pass.
 
-**Suggested Claude model:** Fable 5
+**Suggested Claude model:** Haiku for small polish/refactors; Fable 5 only if refactoring persistence/shared state contracts.

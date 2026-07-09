@@ -10,9 +10,10 @@ import './dashboard.css'
 
 interface DashboardProps {
   onNavigateToFocusRoom?: () => void
+  onNavigateToHabitTracker?: () => void
 }
 
-function Dashboard({ onNavigateToFocusRoom }: DashboardProps): React.JSX.Element {
+function Dashboard({ onNavigateToFocusRoom, onNavigateToHabitTracker }: DashboardProps): React.JSX.Element {
   const data = dashboardMockData
 
   return (
@@ -30,6 +31,7 @@ function Dashboard({ onNavigateToFocusRoom }: DashboardProps): React.JSX.Element
           habitTracker={data.habitTracker}
           aiReview={data.aiReview}
           onNavigateToFocusRoom={onNavigateToFocusRoom}
+          onNavigateToHabitTracker={onNavigateToHabitTracker}
         />
         <FooterBar />
       </div>

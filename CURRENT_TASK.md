@@ -1,17 +1,18 @@
 # Current Task
 
-Task 4: Static Focus Room UI (from `docs/TASKS.md`).
+Task 5: Static Habit Tracker UI (from `docs/TASKS.md`).
 
 ## Goal
 
-Build the Focus Room visual shell without integrations: Pomodoro timer layout, music/ambient/background selectors as UI entry points, session stats, focus streak, and today's focused time—all with mock data only. No timers, no behavior, no persistence, no music/Spotify integration.
+Build the Habit Tracker visual shell with mock data only: daily habits list, weekly overview, GitHub-style contribution grid, habit streaks, and completion history. No behavior, no persistence, no habit creation/editing.
 
-Task 3 (Static Dashboard UI) was signed off by the developer on 2026-07-09.
+Task 4 (Static Focus Room UI) was completed on 2026-07-09.
 
 ## Allowed To Change
 
-- `src/renderer/src/features/focusRoom/` (new focus room feature files)
-- `src/renderer/src/App.tsx` (mount the focus room or add routing)
+- `src/renderer/src/features/habitTracker/` (new habit tracker feature files)
+- `src/renderer/src/App.tsx` (wire the habit tracker navigation)
+- `src/renderer/src/features/dashboard/FeatureCardsRow.tsx` (add navigation callback if needed)
 - `src/renderer/src/assets/` (shared styling and design tokens, only if new tokens needed)
 - Shared UI components under `src/renderer/src/` only if duplication becomes meaningful
 - This file
@@ -19,24 +20,25 @@ Task 3 (Static Dashboard UI) was signed off by the developer on 2026-07-09.
 ## Do Not Touch
 
 - `src/main/` and `src/preload/` (a static UI needs no main/preload changes)
-- Dashboard, Habit Tracker, AI Review, and Settings feature implementations
+- Focus Room, Dashboard, AI Review, and Settings feature implementations
 - Database schema or persistence
-- Spotify or Ollama integration
 - Git history
 - `docs/PRD.md`, `docs/TASKS.md`, `docs/AI_RULES.md`, `docs/DESIGN_SYSTEM.md`, `CLAUDE.md`
 
 ## Requirements
 
-- Focus Room matches the PRD and design direction: calm, immersive deep work environment.
-- Pomodoro timer is the visual anchor (display the layout, mock time value like "25:00"; timer behavior arrives in Task 7).
-- Spotify integration entry point (button/link, no actual Spotify connection) and local music UI (marked as future-ready, no player code).
-- Ambient sound selector UI (visual entry point only, no actual audio).
-- Background selector UI (visual entry point only, no real backgrounds).
-- Session stats and focus streak displayed with mock data (from the dashboard's mock pool or local mock).
-- Today's focused time stat (mock value, no persistence).
+- Habit Tracker matches the PRD and design direction: low-friction habit completion UI inspired by Habitify Desktop.
+- Daily habits list with completion checkboxes (visual only, no state changes).
+- Weekly overview showing habit completion status for the past 7 days.
+- GitHub-style contribution grid showing completion history across a date range (e.g., last 3 months).
+- Habit streaks displayed for each habit (mock values, no persistence).
+- Completion history visible in the grid and weekly view.
+- Mock data showing various completion states (some habits completed today, varied streak lengths, grid history).
 - All data is static or mocked.
-- Dark-first, purple-accent aesthetic consistent with the dashboard.
+- Dark-first, purple-accent aesthetic consistent with the dashboard and focus room.
+- Low-friction controls (checkboxes appear intuitive, even though they're static).
 - No new dependencies.
+- No habit creation, editing, or deletion UI (deferred to future task).
 
 ## Completion Checklist
 
@@ -45,12 +47,12 @@ Task 3 (Static Dashboard UI) was signed off by the developer on 2026-07-09.
 - [x] Relevant checks were run or skipped with explanation.
 - [x] Changed files were summarized.
 - [x] Manual review is ready.
-- [x] Next task was suggested but not started.
+- [ ] Next task was suggested but not started.
 
 ## Review Status
 
-✅ Task 4 Complete. Focus Room is fully integrated and navigable from the Dashboard. Ready for manual developer review before proceeding to Task 5.
+✅ Task 5 Complete. Habit Tracker is fully built, integrated, and navigable from Dashboard.
 
 ## Notes
 
-Mock data for the Focus Room lives inside its own feature directory. Task 7 (Pomodoro Timer Behavior) wires up the timer logic. Persistence arrives in Task 6.
+Mock data for the Habit Tracker lives inside its own feature directory. Task 8 (Habit Completion Behavior) wires up completion logic and EXP awards. Persistence arrives in Task 6.

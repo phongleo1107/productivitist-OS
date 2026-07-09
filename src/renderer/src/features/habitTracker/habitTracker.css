@@ -1,0 +1,363 @@
+.habit-tracker {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0712 0%, #1a1428 50%, #0e0916 100%);
+  padding: 40px 20px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  padding: 8px 16px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 6px;
+  background: rgba(23, 15, 40, 0.6);
+  color: #a1a1aa;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  border-color: #8b5cf6;
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.tracker-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.tracker-header {
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.tracker-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #e8e4f1;
+  margin: 0;
+}
+
+.header-stats {
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+}
+
+.header-stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.header-stats dt {
+  color: #8e87a2;
+  font-weight: 500;
+}
+
+.header-stats dd {
+  font-size: 20px;
+  font-weight: 700;
+  color: #a78bfa;
+  margin: 0;
+}
+
+.tracker-section {
+  margin-bottom: 48px;
+}
+
+.tracker-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a1aa;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+/* Daily Habits */
+
+.daily-habits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.habit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(21, 16, 33, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.habit-item:hover {
+  background: rgba(21, 16, 33, 0.6);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.habit-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.habit-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #8b5cf6;
+  flex-shrink: 0;
+}
+
+.habit-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.habit-name {
+  font-size: 14px;
+  color: #e8e4f1;
+  font-weight: 500;
+}
+
+.habit-item:has(.habit-checkbox:checked) .habit-name {
+  color: #a78bfa;
+}
+
+.habit-stats {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #a1a1aa;
+  font-weight: 600;
+}
+
+.streak-icon {
+  font-size: 14px;
+}
+
+/* Weekly Overview */
+
+.weekly-overview {
+  padding: 16px;
+  background: rgba(21, 16, 33, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  min-width: 100%;
+}
+
+.week-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(23, 15, 40, 0.5);
+  border-radius: 6px;
+  border: 1px solid rgba(139, 92, 246, 0.05);
+}
+
+.day-progress {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress-box {
+  width: 40px;
+  height: 20px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.progress-text {
+  font-size: 10px;
+  font-weight: 700;
+  color: #8e87a2;
+  letter-spacing: 0.05em;
+}
+
+.day-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #8e87a2;
+  letter-spacing: 0.08em;
+}
+
+.day-date {
+  font-size: 14px;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+.day-habits {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.habit-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: rgba(139, 92, 246, 0.15);
+  transition: all 0.2s ease;
+}
+
+.habit-dot.completed {
+  background: #8b5cf6;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+}
+
+.habit-dot.missed {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+/* Contribution Grid */
+
+.contribution-grid-container {
+  padding: 16px;
+  background: rgba(21, 16, 33, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.grid-header {
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #8e87a2;
+  font-weight: 500;
+}
+
+.month-labels {
+  display: flex;
+  padding-left: 40px;
+  gap: 0;
+  margin-bottom: 8px;
+}
+
+.month-labels span {
+  flex: 1;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+}
+
+.contribution-grid {
+  display: flex;
+  gap: 12px;
+}
+
+.day-axis {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: #8e87a2;
+  font-weight: 500;
+  padding-right: 8px;
+  min-width: 40px;
+  align-content: flex-start;
+}
+
+.day-axis .day-label {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.weeks {
+  display: flex;
+  gap: 4px;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.day-cell {
+  width: 16px;
+  height: 16px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 2px;
+  cursor: default;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(139, 92, 246, 0.05);
+}
+
+.day-cell.completed {
+  background: #8b5cf6;
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
+}
+
+.day-cell.empty {
+  background: rgba(59, 64, 89, 0.3);
+  border-color: rgba(139, 92, 246, 0.05);
+}
+
+.day-cell:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.grid-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  font-size: 11px;
+  color: #8e87a2;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.legend-cells {
+  display: flex;
+  gap: 4px;
+}
+
+.legend-label {
+  padding: 0 4px;
+}

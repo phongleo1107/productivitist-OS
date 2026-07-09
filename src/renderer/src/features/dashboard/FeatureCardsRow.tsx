@@ -6,13 +6,15 @@ interface FeatureCardsRowProps {
   habitTracker: DashboardMockData['habitTracker']
   aiReview: DashboardMockData['aiReview']
   onNavigateToFocusRoom?: () => void
+  onNavigateToHabitTracker?: () => void
 }
 
 function FeatureCardsRow({
   focusRoom,
   habitTracker,
   aiReview,
-  onNavigateToFocusRoom
+  onNavigateToFocusRoom,
+  onNavigateToHabitTracker
 }: FeatureCardsRowProps): React.JSX.Element {
   return (
     <div className="feature-row">
@@ -71,7 +73,7 @@ function FeatureCardsRow({
               <dd>{habitTracker.bestStreakDays} days 🔥</dd>
             </div>
           </dl>
-          <button type="button" className="cta-button">
+          <button type="button" className="cta-button" onClick={onNavigateToHabitTracker}>
             View Habits <ArrowRightIcon size={15} />
           </button>
         </div>

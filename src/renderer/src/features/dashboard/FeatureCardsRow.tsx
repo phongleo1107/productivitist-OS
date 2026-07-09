@@ -5,12 +5,14 @@ interface FeatureCardsRowProps {
   focusRoom: DashboardMockData['focusRoom']
   habitTracker: DashboardMockData['habitTracker']
   aiReview: DashboardMockData['aiReview']
+  onNavigateToFocusRoom?: () => void
 }
 
 function FeatureCardsRow({
   focusRoom,
   habitTracker,
-  aiReview
+  aiReview,
+  onNavigateToFocusRoom
 }: FeatureCardsRowProps): React.JSX.Element {
   return (
     <div className="feature-row">
@@ -42,7 +44,7 @@ function FeatureCardsRow({
               </dd>
             </div>
           </dl>
-          <button type="button" className="cta-button">
+          <button type="button" className="cta-button" onClick={onNavigateToFocusRoom}>
             Enter Room <ArrowRightIcon size={15} />
           </button>
         </div>

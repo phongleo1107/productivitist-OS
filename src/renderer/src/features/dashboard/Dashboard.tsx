@@ -8,7 +8,11 @@ import FeatureCardsRow from './FeatureCardsRow'
 import FooterBar from './FooterBar'
 import './dashboard.css'
 
-function Dashboard(): React.JSX.Element {
+interface DashboardProps {
+  onNavigateToFocusRoom?: () => void
+}
+
+function Dashboard({ onNavigateToFocusRoom }: DashboardProps): React.JSX.Element {
   const data = dashboardMockData
 
   return (
@@ -25,6 +29,7 @@ function Dashboard(): React.JSX.Element {
           focusRoom={data.focusRoom}
           habitTracker={data.habitTracker}
           aiReview={data.aiReview}
+          onNavigateToFocusRoom={onNavigateToFocusRoom}
         />
         <FooterBar />
       </div>

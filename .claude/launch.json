@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "renderer-preview",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "out/renderer"],
-      "port": 4173
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [".claude/serve.sh"],
+      "port": 5173,
+      "autoPort": true
     }
   ]
 }

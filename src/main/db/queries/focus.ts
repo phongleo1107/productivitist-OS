@@ -134,3 +134,31 @@ export function listFocusSessionsByDateRange(
     )
     .all(userId, startDate, endDate) as FocusSessionRow[]
 }
+
+/** Count of focus sessions completed on a specific date in the user's timezone. */
+export function countFocusSessionsByDate(
+  db: Database.Database,
+  sessionDate: string,
+  userId: string = DEFAULT_USER_ID
+): number {
+  const result = db
+    .prepare('SELECT COUNT(*) AS count FROM focus_sessions WHERE user_id = ? AND session_date = ?')
+    .get(userId, sessionDate) as { count: number }
+  return result.count
+}
+
+/** Sum of all actual_duration_seconds for sessions on a specific date. */
+export function totalFocusMinutesByDate(
+  db: Database.Database,
+  sessionDate: string,
+  userId: string = DEFAULT_USER_ID
+): number {
+  const result = db
+    .prepare(
+      `SELECT COALESCE(SUM(actual_duration_seconds), 0) AS total_seconds
+       FROM focus_sessions
+       WHERE user_id = ? AND session_date = ?`
+    )
+    .get(userId, sessionDate) as { total_seconds: number }
+  return Math.floor(result.total_seconds / 60)
+}

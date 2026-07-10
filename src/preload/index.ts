@@ -28,6 +28,12 @@ const api = {
       endDate: string
     ): Promise<FocusSessionRow[]> =>
       ipcRenderer.invoke(DB_CHANNELS.focusListByDateRange, startDate, endDate),
+    getFocusSessionCountForDate: (sessionDate: string): Promise<number> =>
+      ipcRenderer.invoke(DB_CHANNELS.focusCountByDate, sessionDate),
+    getFocusMinutesForDate: (sessionDate: string): Promise<number> =>
+      ipcRenderer.invoke(DB_CHANNELS.focusTotalMinutesByDate, sessionDate),
+    getCurrentExp: (): Promise<number> => ipcRenderer.invoke(DB_CHANNELS.expGetCurrent),
+    getCurrentLevel: (): Promise<number> => ipcRenderer.invoke(DB_CHANNELS.expGetCurrentLevel),
 
     createHabit: (input: CreateHabitInput): Promise<HabitRow> =>
       ipcRenderer.invoke(DB_CHANNELS.habitsCreate, input),

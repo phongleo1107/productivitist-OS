@@ -40,15 +40,40 @@ Each feature should own its UI and behavior where possible. Shared code should b
 
 ## Data Ownership
 
-All user data is local by default.
+All user data is local by default. The persistence layer uses SQLite (single-file database) with typed accessor functions and an Electron IPC bridge.
 
-Expected local storage responsibilities:
+### Database Schema and Location
 
-- Store profile and customization settings.
-- Store focus sessions and Pomodoro completion history.
-- Store habit definitions and completion history.
-- Store EXP, level, streak, and consistency state.
-- Store generated AI review history if the user chooses to keep it.
+- **Schema:** `src/main/db/schema.sql` defines all tables.
+- **Migrations:** `src/main/db/migrations/001_init.sql` initializes the schema on first launch.
+- **Connection:** `src/main/db/db.ts` manages SQLite initialization, connection, and lifecycle.
+- **Accessors:** Typed query functions live in `src/main/db/queries/`:
+  - `profile.ts` — user profile and preferences
+  - `focus.ts` — focus sessions
+  - `habits.ts` — habit definitions
+  - `habitCompletions.ts` — habit completion history and toggles
+  - `login.ts` — login day tracking
+  - `reviews.ts` — AI-generated review history
+  - `exp.ts` — EXP event insertion helper
+- **IPC Bridge:** `src/main/db/ipc.ts` and `src/preload/index.ts` expose a narrow `window.api.db.*` interface for the renderer.
+
+### Local Storage Responsibilities
+
+- Store profile and customization settings (name, theme, timezone, accent color).
+- Store focus sessions and completion history with atomic EXP awards.
+- Store habit definitions and completion history with atomic EXP reversals on unmarking.
+- Store login days to calculate login streaks.
+- Derive EXP, level, streak, and consistency metrics from source tables (no denormalized state tables).
+- Store AI review history if the user chooses to keep it (read-only except archival).
+
+### Derived Metrics
+
+Streaks, consistency percentages, level, and current EXP are calculated at read time from source tables:
+- **Login streak:** consecutive distinct dates from `login_days`
+- **Focus streak:** consecutive dates with completed focus sessions
+- **Habit streaks:** consecutive periods (daily or weekly) with completions
+- **Consistency:** distinct activity days / eligible calendar days
+- **Level & EXP:** current level is the max threshold not exceeding total EXP from `exp_events`
 
 Do not add cloud sync, remote databases, authentication, or telemetry during the MVP.
 

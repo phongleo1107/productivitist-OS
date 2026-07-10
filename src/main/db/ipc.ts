@@ -6,8 +6,11 @@ import {
   insertFocusSession,
   listRecentFocusSessions,
   listFocusSessionsByDateRange,
+  countFocusSessionsByDate,
+  totalFocusMinutesByDate,
   type InsertFocusSessionInput
 } from './queries/focus'
+import { getCurrentExp, getCurrentLevel } from './queries/exp'
 import { createHabit, listHabits, archiveHabit, type CreateHabitInput } from './queries/habits'
 import {
   toggleHabitCompletion,
@@ -45,6 +48,15 @@ export function registerDbIpcHandlers(): void {
   ipcMain.handle(DB_CHANNELS.focusListByDateRange, (_event, startDate: string, endDate: string) =>
     listFocusSessionsByDateRange(getDb(), startDate, endDate)
   )
+  ipcMain.handle(DB_CHANNELS.focusCountByDate, (_event, sessionDate: string) =>
+    countFocusSessionsByDate(getDb(), sessionDate)
+  )
+  ipcMain.handle(DB_CHANNELS.focusTotalMinutesByDate, (_event, sessionDate: string) =>
+    totalFocusMinutesByDate(getDb(), sessionDate)
+  )
+
+  ipcMain.handle(DB_CHANNELS.expGetCurrent, () => getCurrentExp(getDb()))
+  ipcMain.handle(DB_CHANNELS.expGetCurrentLevel, () => getCurrentLevel(getDb()))
 
   ipcMain.handle(DB_CHANNELS.habitsCreate, (_event, input: CreateHabitInput) =>
     createHabit(getDb(), input)

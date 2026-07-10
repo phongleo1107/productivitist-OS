@@ -51,7 +51,44 @@
 }
 
 .timer-anchor.flow-mode {
-  filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.3));
+  position: relative;
+  animation: flowModeGlowFadeIn 0.6s ease-out forwards;
+}
+
+.timer-anchor.flow-mode::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: flowModeGlowPulse 3s ease-in-out infinite;
+}
+
+.timer-anchor.flow-mode .timer-display {
+  filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
+}
+
+@keyframes flowModeGlowFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flowModeGlowPulse {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.25;
+  }
 }
 
 .timer-container {
@@ -218,4 +255,39 @@
   font-size: 24px;
   font-weight: 700;
   color: #a78bfa;
+}
+
+/* EXP earned toast */
+
+.exp-earned-toast {
+  margin-top: 24px;
+  padding: 12px 24px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 8px;
+  color: #86efac;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  animation: expToastFadeInOut 3s ease-in-out forwards;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+@keyframes expToastFadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }

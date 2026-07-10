@@ -10,6 +10,11 @@ export const DB_CHANNELS = {
   focusInsert: 'db:focus:insert',
   focusListRecent: 'db:focus:listRecent',
   focusListByDateRange: 'db:focus:listByDateRange',
+  focusCountByDate: 'db:focus:countByDate',
+  focusTotalMinutesByDate: 'db:focus:totalMinutesByDate',
+
+  expGetCurrent: 'db:exp:getCurrent',
+  expGetCurrentLevel: 'db:exp:getCurrentLevel',
 
   habitsCreate: 'db:habits:create',
   habitsList: 'db:habits:list',

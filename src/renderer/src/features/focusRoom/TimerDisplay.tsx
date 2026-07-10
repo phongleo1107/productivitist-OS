@@ -6,8 +6,9 @@ interface TimerDisplayProps {
   onReset: () => void
   resetDisabled: boolean
   flowModeActive: boolean
-  focusScore: number
-  streak: number
+  currentExp: number
+  currentLevel: number
+  earnedExp: number | null
 }
 
 function TimerDisplay({
@@ -18,8 +19,9 @@ function TimerDisplay({
   onReset,
   resetDisabled,
   flowModeActive,
-  focusScore,
-  streak
+  currentExp,
+  currentLevel,
+  earnedExp
 }: TimerDisplayProps): React.JSX.Element {
   return (
     <div className={`timer-anchor ${flowModeActive ? 'flow-mode' : ''}`}>
@@ -47,9 +49,14 @@ function TimerDisplay({
           </button>
         </div>
         <div className="timer-secondary">
-          <span>Focus Score: {focusScore}%</span>
-          <span>Streak: {streak}</span>
+          <span>Level: {currentLevel}</span>
+          <span>EXP: {currentExp}</span>
         </div>
+        {earnedExp !== null && (
+          <div className="exp-earned-toast">
+            <span>+ {earnedExp} EXP</span>
+          </div>
+        )}
       </div>
     </div>
   )

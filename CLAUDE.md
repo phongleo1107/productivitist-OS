@@ -54,9 +54,9 @@ If any document conflicts with the current task, stop and ask the developer befo
 
 ## Project Status (read this first)
 
-- **Current task:** Task 6 (Local Persistence Foundation) is active for planning only. Do not implement persistence until the developer approves the data model/schema.
-- **Do not start Task 7 or any other task** until the developer updates `CURRENT_TASK.md`.
-- **Stack:** Electron + React + TypeScript, scaffolded with electron-vite. SQLite is planned for Task 6 (not yet added). Ollama is planned for Task 10 (not yet added).
+- **Current task:** Task 7 (Pomodoro Timer Behavior) — wire the Focus Room timer to persistence, implement session completion with EXP awards, consecutive-session tracking, and Flow Mode activation.
+- **Task 6 status:** Local Persistence Foundation is fully implemented and approved. SQLite schema/migrations, 8 query accessor modules (profile, focus, habits, habit_completions, login, reviews, exp), IPC/preload bridge, and startup wiring all verified end-to-end.
+- **Stack:** Electron + React + TypeScript, scaffolded with electron-vite. SQLite (via `better-sqlite3`) is now added and initialized. Ollama is planned for Task 10 (not yet added).
 - **One task at a time:** work only within the scope defined in `CURRENT_TASK.md`. No feature work outside the active task, even if it seems related.
 - **Never commit, push, merge, or rebase.** All Git operations are manual and developer-performed.
 
@@ -85,6 +85,7 @@ Task 2 was signed off by the developer on 2026-07-09. Fixes applied during that 
 - Task 3 (Static Dashboard UI) is complete.
 - Task 4 (Static Focus Room UI) is complete.
 - Task 5 (Static Habit Tracker UI) is complete and ready for manual review.
+- Task 6 (Local Persistence Foundation) is complete: SQLite schema/migrations, all query accessors (profile, focus, habits, login, reviews, habit completions with audit & EXP reversal), IPC/preload bridge. Fully tested end-to-end. Ready for manual review before Task 7.
 
 ## Verification Commands
 

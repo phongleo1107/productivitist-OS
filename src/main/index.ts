@@ -2,6 +2,10 @@ import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { getDb } from './db/db'
+import { registerDbIpcHandlers } from './db/ipc'
+import { recordAppOpen } from './db/queries/login'
+import { ensureDefaultUser } from './db/queries/profile'
 
 function createWindow(): void {
   // Create the browser window.
@@ -56,6 +60,14 @@ function createWindow(): void {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.productivitist-os.app')
+
+  // Initialize local persistence (runs migrations on first launch), ensure
+  // the single local user row exists, record today's login day (transaction
+  // contract #3), and expose the persistence layer to the renderer via IPC.
+  const db = getDb()
+  ensureDefaultUser(db)
+  recordAppOpen(db)
+  registerDbIpcHandlers()
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { habitTrackerMockData } from './mockData'
+import type { Habit } from './mockData'
 import DailyHabits from './DailyHabits'
 import WeeklyOverview from './WeeklyOverview'
 import ContributionGrid from './ContributionGrid'
@@ -10,6 +12,16 @@ interface HabitTrackerProps {
 
 function HabitTracker({ onNavigateToDashboard }: HabitTrackerProps): React.JSX.Element {
   const data = habitTrackerMockData
+  const [habits, setHabits] = useState<Habit[]>(() => data.habits.map((habit) => ({ ...habit })))
+  const totalCompleted = habits.filter((habit) => habit.completedToday).length
+
+  const handleToggleHabit = (habitId: string): void => {
+    setHabits((currentHabits) =>
+      currentHabits.map((habit) =>
+        habit.id === habitId ? { ...habit, completedToday: !habit.completedToday } : habit
+      )
+    )
+  }
 
   return (
     <main className="habit-tracker">
@@ -28,23 +40,25 @@ function HabitTracker({ onNavigateToDashboard }: HabitTrackerProps): React.JSX.E
           <div className="header-stats">
             <div className="stat">
               <dt>Today</dt>
-              <dd>{data.totalCompleted}/{data.habits.length}</dd>
+              <dd>
+                {totalCompleted}/{habits.length}
+              </dd>
             </div>
             <div className="stat">
               <dt>Streak</dt>
-              <dd>{data.habits.reduce((max, h) => Math.max(max, h.currentStreak), 0)} days</dd>
+              <dd>{habits.reduce((max, h) => Math.max(max, h.currentStreak), 0)} days</dd>
             </div>
           </div>
         </header>
 
         <section className="tracker-section">
           <h2>Daily Habits</h2>
-          <DailyHabits habits={data.habits} />
+          <DailyHabits habits={habits} onToggleHabit={handleToggleHabit} />
         </section>
 
         <section className="tracker-section">
           <h2>Weekly Overview</h2>
-          <WeeklyOverview habits={data.habits} />
+          <WeeklyOverview habits={habits} />
         </section>
 
         <section className="tracker-section">

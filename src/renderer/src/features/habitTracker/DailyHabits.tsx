@@ -2,9 +2,10 @@ import type { Habit } from './mockData'
 
 interface DailyHabitsProps {
   habits: Habit[]
+  onToggleHabit: (habitId: string) => void
 }
 
-function DailyHabits({ habits }: DailyHabitsProps): React.JSX.Element {
+function DailyHabits({ habits, onToggleHabit }: DailyHabitsProps): React.JSX.Element {
   return (
     <ul className="daily-habits-list">
       {habits.map((habit) => (
@@ -14,7 +15,7 @@ function DailyHabits({ habits }: DailyHabitsProps): React.JSX.Element {
               type="checkbox"
               className="habit-checkbox"
               checked={habit.completedToday}
-              disabled
+              onChange={() => onToggleHabit(habit.id)}
               aria-label={habit.name}
             />
             <span className="habit-name">{habit.name}</span>

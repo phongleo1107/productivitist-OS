@@ -69,22 +69,49 @@
   line-height: 1;
 }
 
-.timer-button {
+.timer-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
   margin-top: 24px;
+}
+
+.timer-button,
+.timer-reset-button {
   padding: 14px 32px;
-  border: 2px solid #8b5cf6;
   border-radius: 10px;
   background: rgba(23, 15, 40, 0.8);
-  color: #a78bfa;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
+.timer-button {
+  border: 2px solid #8b5cf6;
+  color: #a78bfa;
+}
+
 .timer-button:hover {
   border-color: #a78bfa;
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.timer-reset-button {
+  border: 1px solid #2b2242;
+  color: #a1a1aa;
+}
+
+.timer-reset-button:hover:not(:disabled) {
+  border-color: #8b5cf6;
+  color: #a78bfa;
+}
+
+.timer-button:disabled,
+.timer-reset-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 .timer-secondary {

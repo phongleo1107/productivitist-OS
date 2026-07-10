@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { focusRoomMockData } from './mockData'
 import TimerDisplay from './TimerDisplay'
 import MusicControls from './MusicControls'
@@ -5,10 +6,54 @@ import './focusRoom.css'
 
 interface FocusRoomProps {
   onNavigateToDashboard?: () => void
+  durationSeconds?: number
 }
 
-function FocusRoom({ onNavigateToDashboard }: FocusRoomProps): React.JSX.Element {
-  const { sessionTimer, flowModeActive, sessionStats, focusStreak } = focusRoomMockData
+type TimerStatus = 'idle' | 'running' | 'paused'
+
+const DEFAULT_DURATION_SECONDS = 25 * 60
+
+function formatTime(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+}
+
+function FocusRoom({
+  onNavigateToDashboard,
+  durationSeconds = DEFAULT_DURATION_SECONDS
+}: FocusRoomProps): React.JSX.Element {
+  const { flowModeActive, sessionStats, focusStreak } = focusRoomMockData
+  const [timerStatus, setTimerStatus] = useState<TimerStatus>('idle')
+  const [remainingSeconds, setRemainingSeconds] = useState(durationSeconds)
+
+  useEffect(() => {
+    if (timerStatus !== 'running') return
+
+    const intervalId = window.setInterval(() => {
+      setRemainingSeconds((currentSeconds) => {
+        if (currentSeconds <= 1) {
+          window.clearInterval(intervalId)
+          setTimerStatus('idle')
+          return 0
+        }
+
+        return currentSeconds - 1
+      })
+    }, 1000)
+
+    return () => window.clearInterval(intervalId)
+  }, [timerStatus])
+
+  const handleStartPause = (): void => {
+    setTimerStatus((currentStatus) => (currentStatus === 'running' ? 'paused' : 'running'))
+  }
+
+  const handleReset = (): void => {
+    setTimerStatus('idle')
+    setRemainingSeconds(durationSeconds)
+  }
 
   return (
     <main className="focus-room">
@@ -23,7 +68,12 @@ function FocusRoom({ onNavigateToDashboard }: FocusRoomProps): React.JSX.Element
 
       <div className="focus-room-layout">
         <TimerDisplay
-          time={sessionTimer}
+          time={formatTime(remainingSeconds)}
+          remainingSeconds={remainingSeconds}
+          isRunning={timerStatus === 'running'}
+          onStartPause={handleStartPause}
+          onReset={handleReset}
+          resetDisabled={timerStatus === 'idle' && remainingSeconds === durationSeconds}
           flowModeActive={flowModeActive}
           focusScore={sessionStats.focusScore}
           streak={focusStreak}

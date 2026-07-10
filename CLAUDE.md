@@ -54,11 +54,20 @@ If any document conflicts with the current task, stop and ask the developer befo
 
 ## Project Status (read this first)
 
-- **Current task:** Task 3 (Static Dashboard UI) is in progress. Task 2 (Project Scaffold) was approved by the developer on 2026-07-09. See `CURRENT_TASK.md` for the authoritative scope/status.
-- **Do not start Task 4 or any other task** until the developer updates `CURRENT_TASK.md`.
+- **Current task:** Task 6 (Local Persistence Foundation) is active for planning only. Do not implement persistence until the developer approves the data model/schema.
+- **Do not start Task 7 or any other task** until the developer updates `CURRENT_TASK.md`.
 - **Stack:** Electron + React + TypeScript, scaffolded with electron-vite. SQLite is planned for Task 6 (not yet added). Ollama is planned for Task 10 (not yet added).
 - **One task at a time:** work only within the scope defined in `CURRENT_TASK.md`. No feature work outside the active task, even if it seems related.
 - **Never commit, push, merge, or rebase.** All Git operations are manual and developer-performed.
+
+## Model and Worktree Policy
+
+- Claude is the default implementation engineer for routine UI, wiring, tests, documentation, and cleanup.
+- GPT-5.6 is reserved for hard contracts and correctness-heavy work: persistence schema design, timer state machines, date/streak logic, EXP/aggregate formulas, Ollama prompt/data contracts, and difficult reviews.
+- Fable 5 is escalation-only after GPT-5.6 fails verification, remains stuck after one focused retry, or needs an independent second opinion.
+- Do not assign an entire task to GPT-5.6 or Fable 5 when only one slice is difficult.
+- If worktrees are used, each agent must run in its own worktree and branch. Never run two agents in the same worktree.
+- The main project directory is for coordination, reviews, and final merge decisions.
 
 ## Security Notes (Electron main/preload)
 
@@ -70,6 +79,12 @@ If any document conflicts with the current task, stop and ask the developer befo
 ## Task 2 Review Status
 
 Task 2 was signed off by the developer on 2026-07-09. Fixes applied during that review round: build scripts (`build:mac`/`build:linux`) aligned with `build`/`build:win` to run typecheck; `appId` aligned between `electron-builder.yml` and `src/main/index.ts`; unused macOS camera/microphone privacy prompts removed from `electron-builder.yml`; `README.md` setup/build instructions added; external URL parsing guarded with try/catch (see Security Notes above).
+
+## Completed Task Status
+
+- Task 3 (Static Dashboard UI) is complete.
+- Task 4 (Static Focus Room UI) is complete.
+- Task 5 (Static Habit Tracker UI) is complete and ready for manual review.
 
 ## Verification Commands
 

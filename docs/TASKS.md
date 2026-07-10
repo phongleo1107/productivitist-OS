@@ -2,13 +2,14 @@
 
 ## Model Policy
 
-- Default to Haiku for documentation, scaffold/config work, static UI, small styling fixes, simple component extraction, and review/polish.
-- Use Fable 5 only for tasks with non-trivial state, persistence, data modeling, cross-feature integration, or tricky behavior.
-- Use Opus only for major architecture decisions or when Fable 5 gets stuck.
+- Use Claude as the default implementation engineer for documentation, scaffold/config work, static UI, styling, routine wiring, tests, and polish.
+- Use GPT-5.6 only for the hardest slices: persistence schema design, state machines, date/streak correctness, EXP/aggregate formulas, Ollama prompt/data contracts, and difficult reviews.
+- Use Fable 5 only as an escalation model when GPT-5.6 fails verification, remains stuck after one focused retry, or needs an independent second opinion.
+- Use Opus only for major architecture decisions that remain unresolved after GPT-5.6 and Fable 5 review.
 - Prefer the cheapest model that can safely complete the bounded task.
 - Keep tasks small enough that model choice can be re-evaluated before each task.
 
-Before starting a task, re-evaluate model choice based on actual scope. If the task is only visual/static or documentation/configuration, use Haiku.
+Before starting a task, re-evaluate model choice based on actual scope. Do not assign a whole task to GPT-5.6 or Fable 5 when only one slice is difficult.
 
 ## Task 1: Documentation Foundation Review
 
@@ -148,7 +149,7 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - No cloud, auth, telemetry, or online database is introduced.
 - Existing static UI remains functional.
 
-**Suggested Claude model:** Fable 5
+**Suggested model split:** GPT-5.6 for schema, storage shape, migration strategy, and data contracts; Claude for implementation after the schema is approved. Fable 5 only if GPT-5.6 fails verification or needs a second opinion.
 
 ## Task 7: Pomodoro Timer Behavior
 
@@ -173,7 +174,7 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - Flow Mode activates after four consecutive completed Pomodoro sessions.
 - Flow Mode is visually subtle.
 
-**Suggested Claude model:** Fable 5
+**Suggested model split:** GPT-5.6 for the timer state machine, completion rules, EXP formula, consecutive-session logic, and Flow Mode edge cases; Claude for UI wiring, display states, and tests.
 
 ## Task 8: Habit Completion Behavior
 
@@ -198,7 +199,7 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - Completed habits award EXP.
 - Completion requires minimal interaction.
 
-**Suggested Claude model:** Fable 5
+**Suggested model split:** GPT-5.6 for date/streak correctness, reversible completion rules, and EXP edge cases; Claude for UI wiring, persistence calls, contribution grid binding, and interaction polish.
 
 ## Task 9: Dashboard Data Integration
 
@@ -221,7 +222,7 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - No location is displayed.
 - Empty states are calm and useful.
 
-**Suggested Claude model:** Fable 5
+**Suggested model split:** Claude by default. Use GPT-5.6 only to review aggregate formulas if dashboard data is inconsistent or tests expose edge-case failures.
 
 ## Task 10: Ollama Review MVP
 
@@ -248,7 +249,7 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - The AI does not drift into unrelated conversation.
 - Missing data is handled honestly.
 
-**Suggested Claude model:** Fable 5
+**Suggested model split:** GPT-5.6 for the local-only data summary contract, prompt contract, review structure, and Ollama error handling; Claude for UI shell, loading/error states, and routine integration wiring.
 
 ## Task 11: Customization Settings
 
@@ -272,7 +273,7 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - Defaults remain polished.
 - No online account is required.
 
-**Suggested Claude model:** Fable 5 if persistence/theme integration is included; Haiku if split into static settings UI only.
+**Suggested model split:** Claude by default. Use GPT-5.6 only if theme/profile persistence changes shared architecture or cross-feature contracts.
 
 ## Task 12: Refactor and Polish Pass
 
@@ -296,4 +297,4 @@ Before starting a task, re-evaluate model choice based on actual scope. If the t
 - UI remains consistent with the design system.
 - Relevant checks pass.
 
-**Suggested Claude model:** Haiku for small polish/refactors; Fable 5 only if refactoring persistence/shared state contracts.
+**Suggested model split:** Claude for UI polish, naming cleanup, small refactors, formatting, and tests. Use GPT-5.6 only for shared persistence/state refactors or difficult review. Fable 5 remains escalation-only.

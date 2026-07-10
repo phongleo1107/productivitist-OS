@@ -55,8 +55,26 @@ Task 4 (Static Focus Room UI) was completed on 2026-07-09.
 
 ## Review Status
 
-Not started. Awaiting developer approval of the Task 6 data model/schema.
+✅ **Schema approved by GPT-5.6** on 2026-07-10. 
+
+**Approved design includes:**
+- UTC timestamps + timezone-aware date derivation
+- EXP ledger (1 per focus minute, 10 per habit)
+- Streak gap threshold (4 hours for Flow Mode)
+- Monday-based ISO weeks for weekly habits
+- Calculated streaks (no stored streak tables)
+- Consistency = login days / eligible calendar days
+- Transaction contracts for multi-table operations
+
+**Confidence: 4/5** (implementation risk around timezone + atomic operations, not schema risk)
+
+---
+
+## Implementation Status
+
+**Stream 1 (GPT-5.6):** ✅ Complete
+**Stream 2 (Claude Implementation):** Ready to start
 
 ## Notes
 
-Task 6 should establish the local persistence foundation only. Task 7 wires Pomodoro behavior, Task 8 wires habit completion behavior, Task 9 replaces dashboard mock data with local aggregates, and Task 10 adds local Ollama reviews.
+Task 6 builds only the persistence foundation. Tasks 7–11 wire behavior against this schema without modifying it. Streak calculation, EXP ledger, and timezone logic are foundational—get them right here.

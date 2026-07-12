@@ -54,7 +54,8 @@ If any document conflicts with the current task, stop and ask the developer befo
 
 ## Project Status (read this first)
 
-- **Current task:** Task 7 (Pomodoro Timer Behavior) — wire the Focus Room timer to persistence, implement session completion with EXP awards, consecutive-session tracking, and Flow Mode activation.
+- **Current task:** Task 8 (Habit Completion Behavior) is implemented and verified — see Completed Task Status below. Awaiting manual developer review before Task 9.
+- **Task 7 status:** Pomodoro Timer Behavior is fully implemented and complete. Focus Room timer now saves sessions to DB, calculates EXP (1 per minute minimum 1), tracks consecutive sessions (4-hour gap threshold), activates Flow Mode after 4 consecutive, and displays all stats in real-time. Ready for manual review.
 - **Task 6 status:** Local Persistence Foundation is fully implemented and approved. SQLite schema/migrations, 8 query accessor modules (profile, focus, habits, habit_completions, login, reviews, exp), IPC/preload bridge, and startup wiring all verified end-to-end.
 - **Stack:** Electron + React + TypeScript, scaffolded with electron-vite. SQLite (via `better-sqlite3`) is now added and initialized. Ollama is planned for Task 10 (not yet added).
 - **One task at a time:** work only within the scope defined in `CURRENT_TASK.md`. No feature work outside the active task, even if it seems related.
@@ -84,8 +85,13 @@ Task 2 was signed off by the developer on 2026-07-09. Fixes applied during that 
 
 - Task 3 (Static Dashboard UI) is complete.
 - Task 4 (Static Focus Room UI) is complete.
-- Task 5 (Static Habit Tracker UI) is complete and ready for manual review.
-- Task 6 (Local Persistence Foundation) is complete: SQLite schema/migrations, all query accessors (profile, focus, habits, login, reviews, habit completions with audit & EXP reversal), IPC/preload bridge. Fully tested end-to-end. Ready for manual review before Task 7.
+- Task 5 (Static Habit Tracker UI) is complete.
+- Task 6 (Local Persistence Foundation) is complete: SQLite schema/migrations, all query accessors (profile, focus, habits, login, reviews, habit completions with audit & EXP reversal), IPC/preload bridge. Fully tested end-to-end.
+- Task 7 (Pomodoro Timer Behavior) is complete: timer wired to persistence, session completion saves to DB, EXP calculated and awarded (1 per minute), consecutive sessions tracked (4-hour gap), Flow Mode activates at 4 consecutive, all stats display live, idempotency via client_event_id. Ready for manual review before Task 8.
+- Task 8 (Habit Completion Behavior) is complete and verified: habit toggles wired to `window.api.db.toggleHabitCompletion()`, EXP awarded (+10 on completion, -10 on unmark reversal) via `habitCompletion.ts`, streaks recalculated live via `habitStats.ts` (`calculateStreaks`, `getCurrentPeriodStart`, `isPeriodCompletedOnDate`, `buildContributionGrid`), contribution grid and weekly overview reflect real completion history, idempotency via `client_event_id`. Verified with a 32-case standalone integration test run against the real compiled query modules and the actual `001_init.sql` schema (habit creation, mark/unmark/re-mark EXP transitions, idempotent retries, streak continuity and gap-breaking, weekly Monday-aligned periods, contribution grid correctness, error handling for missing habits) — all 32 passed. `npm run typecheck` and `npx eslint --no-cache` both clean.
+  - Follow-up fix: load failures are now surfaced in the UI with a Retry button instead of only logged to console (root cause of "no habits shown" was most likely a stale Electron main/preload process — restart `npm run dev` after main/preload changes, since Vite only hot-reloads the renderer).
+  - Approved scope addition: a minimal Add Habit form (name + daily/weekly) was added, wired to the existing `window.api.db.createHabit()`, since there was previously no way to create a habit beyond the 5 auto-seeded starter habits.
+  - Ready for manual review before Task 9.
 
 ## Verification Commands
 

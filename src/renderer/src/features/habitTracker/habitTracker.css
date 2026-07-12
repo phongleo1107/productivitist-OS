@@ -68,6 +68,148 @@
   font-weight: 700;
   color: #a78bfa;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tracker-loading,
+.tracker-empty {
+  font-size: 13px;
+  color: #8e87a2;
+}
+
+.tracker-error {
+  padding: 16px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tracker-error p {
+  margin: 0;
+  font-size: 13px;
+  color: #fca5a5;
+  line-height: 1.5;
+}
+
+.retry-button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retry-button:hover {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.18);
+}
+
+.add-habit-form {
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.add-habit-input {
+  flex: 1;
+  min-width: 180px;
+  padding: 8px 12px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 6px;
+  background: rgba(23, 15, 40, 0.6);
+  color: #e8e4f1;
+  font-size: 13px;
+}
+
+.add-habit-input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+}
+
+.add-habit-select {
+  padding: 8px 12px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 6px;
+  background: rgba(23, 15, 40, 0.6);
+  color: #e8e4f1;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.add-habit-button {
+  padding: 8px 16px;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.add-habit-button:hover:not(:disabled) {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.2);
+}
+
+.add-habit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-habit-error {
+  width: 100%;
+  margin: 0;
+  font-size: 12px;
+  color: #fca5a5;
+}
+
+.exp-earned-toast {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 8px;
+  color: #86efac;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  width: fit-content;
+  animation: expToastFadeInOut 3s ease-in-out forwards;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+@keyframes expToastFadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
 }
 
 .tracker-section {
@@ -84,9 +226,9 @@
   font-size: 12px;
 }
 
-/* Daily Habits */
+/* Habit List (Daily & Weekly) */
 
-.daily-habits-list {
+.habit-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -109,6 +251,61 @@
 .habit-item:hover {
   background: rgba(21, 16, 33, 0.6);
   border-color: rgba(139, 92, 246, 0.2);
+}
+
+.habit-item-flash {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.habit-item[draggable='true'] {
+  cursor: grab;
+}
+
+.habit-item[draggable='true']:active {
+  cursor: grabbing;
+}
+
+.habit-item-dragging {
+  opacity: 0.5;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.habit-item-drag-over {
+  border-top: 2px solid rgba(139, 92, 246, 0.6);
+}
+
+.habit-reorder-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-right: 12px;
+}
+
+.habit-reorder-button {
+  width: 18px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: #8e87a2;
+  font-size: 8px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.habit-reorder-button:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+}
+
+.habit-reorder-button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
 }
 
 .habit-label {
@@ -142,6 +339,18 @@
   color: #a78bfa;
 }
 
+.habit-frequency {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.08);
+  color: #8e87a2;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 .habit-stats {
   display: flex;
   gap: 16px;
@@ -159,6 +368,45 @@
 
 .streak-icon {
   font-size: 14px;
+}
+
+.habit-delete-button {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: #8e87a2;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.habit-delete-button:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+.streak-updated,
+.streak-value {
+  animation: streakPop 0.35s ease-out;
+}
+
+@keyframes streakPop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Weekly Overview */
@@ -256,108 +504,130 @@
   background: rgba(21, 16, 33, 0.4);
   border: 1px solid rgba(139, 92, 246, 0.1);
   border-radius: 8px;
+}
+
+/* Single horizontally-scrollable wrapper. The grid inside is sized to its
+   content (inline-grid), so it never stretches to fill this wrapper — wide
+   viewports just leave empty space to the right instead of enlarging cells. */
+.grid-scroll {
   overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
 }
 
-.grid-header {
-  margin-bottom: 12px;
-  font-size: 12px;
-  color: #8e87a2;
-  font-weight: 500;
+.contribution-graph {
+  width: max-content;
+  min-width: 100%;
 }
 
-.month-labels {
-  display: flex;
-  padding-left: 40px;
-  gap: 0;
-  margin-bottom: 8px;
+.calendar-grid {
+  display: inline-grid;
+  /* grid-template-columns is set inline: a fixed weekday-label gutter plus
+     one fixed 12px column per week. Month labels, weekday labels, and every
+     cell are placed in this same grid via integer grid-column/grid-row, so
+     there is no separate pixel-offset system that can drift out of sync. */
+  grid-template-rows: 14px repeat(7, 12px);
+  column-gap: 3px;
+  row-gap: 3px;
 }
 
-.month-labels span {
-  flex: 1;
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 11px;
-}
-
-.contribution-grid {
-  display: flex;
-  gap: 12px;
-}
-
-.day-axis {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.month-label {
+  align-self: start;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
   font-size: 11px;
   color: #8e87a2;
   font-weight: 500;
-  padding-right: 8px;
-  min-width: 40px;
-  align-content: flex-start;
 }
 
-.day-axis .day-label {
-  height: 20px;
+.day-axis-label {
   display: flex;
   align-items: center;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.weeks {
-  display: flex;
-  gap: 4px;
-}
-
-.week {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  justify-content: flex-end;
+  padding-right: 4px;
+  font-size: 11px;
+  color: #8e87a2;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .day-cell {
-  width: 16px;
-  height: 16px;
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
   background: rgba(139, 92, 246, 0.1);
   border-radius: 2px;
   cursor: default;
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease;
   border: 1px solid rgba(139, 92, 246, 0.05);
 }
 
-.day-cell.completed {
+.day-cell-placeholder {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+.day-cell.level-empty {
+  background: #1b1828;
+  border-color: rgba(139, 92, 246, 0.12);
+}
+
+.day-cell.level-low {
+  background: #3d296c;
+  border-color: rgba(167, 139, 250, 0.16);
+}
+
+.day-cell.level-medium {
+  background: #6842b8;
+  border-color: rgba(196, 181, 253, 0.2);
+}
+
+.day-cell.level-high {
   background: #8b5cf6;
-  box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
+  border-color: rgba(221, 214, 254, 0.28);
+  box-shadow: 0 0 4px rgba(139, 92, 246, 0.3);
 }
 
-.day-cell.empty {
-  background: rgba(59, 64, 89, 0.3);
-  border-color: rgba(139, 92, 246, 0.05);
+.day-cell:not(.day-cell-placeholder):hover {
+  border-color: rgba(139, 92, 246, 0.35);
 }
 
-.day-cell:hover {
-  border-color: rgba(139, 92, 246, 0.2);
+.grid-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-left: 31px;
+  margin-top: 12px;
+  min-height: 14px;
+  font-size: 11px;
+  color: #8e87a2;
+  font-weight: 500;
+}
+
+.grid-summary {
+  white-space: nowrap;
 }
 
 .grid-legend {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 16px;
-  font-size: 11px;
-  color: #8e87a2;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 500;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .legend-cells {
   display: flex;
-  gap: 4px;
+  gap: 3px;
+}
+
+.legend-cells .day-cell {
+  width: 12px;
+  height: 12px;
 }
 
 .legend-label {
-  padding: 0 4px;
+  padding: 0 2px;
 }

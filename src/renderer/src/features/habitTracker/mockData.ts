@@ -1,10 +1,12 @@
 // Static mock data for the Task 5 Habit Tracker shell.
 // Task 8 (Habit Completion Behavior) wires up completion logic and EXP awards.
 
+export type HabitFrequency = 'daily' | 'weekly'
+
 export interface Habit {
   id: string
   name: string
-  frequency: 'daily' | 'weekly'
+  frequency: HabitFrequency
   completedToday: boolean
   currentStreak: number
   bestStreak: number
@@ -13,6 +15,7 @@ export interface Habit {
 export interface HabitGridEntry {
   date: string // YYYY-MM-DD format
   completed: boolean
+  completionRatio: number // 0-1 fraction of habits completed that day, for grid intensity
 }
 
 export interface HabitTrackerMockData {
@@ -65,18 +68,20 @@ export const habitTrackerMockData: HabitTrackerMockData = {
     }
   ],
   totalCompleted: 4,
-  gridHistory: Array.from({ length: 90 }, (_, i) => {
+  // Deterministic placeholder history (shown only until the real completion
+  // history loads from the database) — a repeating pattern rather than
+  // Math.random(), so this initial render is stable and reproducible, and
+  // deliberately cycles through all four intensity levels.
+  gridHistory: Array.from({ length: 365 }, (_, i) => {
     const date = new Date()
-    date.setDate(date.getDate() - (89 - i))
+    date.setDate(date.getDate() - (364 - i))
     const formattedDate = date.toISOString().split('T')[0]
-    // ~70% completion rate, clusters of completion and gaps
-    const dayOfWeek = date.getDay()
-    const week = Math.floor(i / 7)
-    const completed =
-      (dayOfWeek !== 0 && Math.random() > 0.2) || (dayOfWeek === 0 && Math.random() > 0.6) // weekends less likely
+    const ratioPattern = [0, 0, 0.2, 0.5, 0, 0.8, 1, 0, 0.4, 0.6, 0.9, 0]
+    const completionRatio = ratioPattern[i % ratioPattern.length]
     return {
       date: formattedDate,
-      completed: week < 4 ? completed : Math.random() > 0.3 // more consistent recently
+      completed: completionRatio > 0,
+      completionRatio
     }
   })
 }

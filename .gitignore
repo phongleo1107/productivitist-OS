@@ -4,3 +4,13 @@ out
 .DS_Store
 .eslintcache
 *.log*
+
+# Local agentic-AI workflow files
+.agents/
+.codex/
+.claude/
+AGENTS.md
+CLAUDE.md
+CURRENT_TASK.md
+CLAUDE.local.md
+AGENTS.local.md
